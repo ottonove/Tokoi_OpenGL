@@ -1,7 +1,9 @@
 #include <cstdlib>
 #include <iostream>
+#include <memory>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "Shape.h"
 
 // プログラムオブジェクトを作成
 // vsrc：バーテックスシェーダのソースプログラムの文字列
@@ -46,6 +48,14 @@ GLuint createProgram(const char *vsrc, const char *fsrc){
     
     return program;
 }
+
+// 矩形の頂点の位置
+constexpr Object::Vertex rectangleVertex[] = {
+    { -0.5f,  0.5f },
+    {  0.5f, -0.5f },
+    {  0.5f,  0.5f },
+    { -0.5f,  0.5f }
+};
 
 int main(){
     
@@ -109,6 +119,9 @@ int main(){
     
     // プログラムオブジェクトを作成する
     const GLuint program(createProgram(vsrc, fsrc));
+
+    //図形データを作成
+    std::unique_ptr<const Shape> shape(new Shape(2, 4, rectangleVertex));
     
     // ウインドウが開いている間繰り返す
     // glfwWindowShouldCloseは、windowを閉じる必要がある時に、Trueになる。
@@ -121,6 +134,8 @@ int main(){
         glUseProgram(program);
         
         // ここで描画処理
+        // 図形を描画する
+        shape->draw();
         
         // カラーバッファを入れ替える
         glfwSwapBuffers(window);
