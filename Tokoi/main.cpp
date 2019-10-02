@@ -51,7 +51,7 @@ GLuint createProgram(const char *vsrc, const char *fsrc){
 
 // 矩形の頂点の位置
 constexpr Object::Vertex rectangleVertex[] = {
-    { -0.5f,  0.5f },
+    { -0.5f, -0.5f },
     {  0.5f, -0.5f },
     {  0.5f,  0.5f },
     { -0.5f,  0.5f }
@@ -107,7 +107,7 @@ int main(){
     "in vec4 position;\n"
     "void main(){\n"
     "  gl_Position = position;\n"
-    "}\n";
+    "}";
     
     // フラグメントシェーダのソースプログラム
     static constexpr GLchar fsrc[] =
